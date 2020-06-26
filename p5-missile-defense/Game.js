@@ -55,23 +55,22 @@ class Game {
 
   update() {
     if (this.isGameOver()) {
-      if (this.keyPressed === 32) {
+      if (this.keyPressed === 32 || game.click) {
         this.reset();
       }
     } else if (this.isPaused()) {
-      if (this.keyPressed === 32) {
+      if (this.keyPressed === 32 || game.click) {
         this.paused = false;
       }
     } else {
-      if (this.keyPressed === 32) {
+      if (this.keyPressed === 32 || game.click) {
         this.paused = true;
       } else {
+        this.cursor.update();
         if (this.click && this.missilesRemaining > 0) {
           this.launchMissile(this.cursor.x, this.cursor.y);
           this.missilesRemaining -= 1;
         }
-
-        this.cursor.update();
         this.canon.update();
         this.city.forEach(b => b.update());
         this.missiles.forEach(m => m.update());

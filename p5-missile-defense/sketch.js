@@ -17,3 +17,7 @@ function mouseClicked() {
 function keyPressed() {
   game.keyPressed = keyCode;
 }
+
+function touchEnded() {
+  game.click = true; 
+}
