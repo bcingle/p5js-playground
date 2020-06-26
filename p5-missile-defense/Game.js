@@ -1,11 +1,11 @@
 class Game {
   
   constructor() {
-    this.settings = {
-      width: 720,
-      height: 500,
-      bgColor: 10,
-      fgColor: 220,
+    this.defaultSettings = {
+      width: 720, // width of the canvas
+      height: 500, // height of the canvas
+      bgColor: 10, // normal background color
+      fgColor: 220, // normal foreground color
       bombColor: '#f00', // red
       bombTrailColor: '#f99', // light red
       aircraftColor: '#0f0', // green
@@ -15,22 +15,23 @@ class Game {
       missileTrailColor: '#99f', // very light blue
       explosionColor: '#f90', // orange
       groundColor: '#090', // dark green
-      ceiling: 60,
-      floor: 30,
-      missileSpeed: 4,
-      planeSpeedMin: 0.5,
-      planeSpeedMax: 1.5,
-      aircraftScore: 1000,
-      bombScore: 100,
-      explosionSpeed: 1.5,
-      explosionSize: 70,
-      bombSpeed: 1.5,
+      ceiling: 60, // the space above the playable area, reserved for HUD
+      floor: 30, // the space below the playable area, reserved for HUD
+      missileSpeed: 4, // the speed of launchedm missiles
+      planeSpeedMin: 0.5, // minimum speed of aircraft
+      planeSpeedMax: 1.5, // maximum speed of aircraft
+      aircraftScore: 1000, // how many points you get for destroying an aircract
+      bombScore: 100, // how many points you get for destroying a bomb
+      explosionSpeed: 1.5, // how fast an explosion grows/shrinks
+      explosionSize: 70, // how big an explosion gets before it stops growing
+      bombSpeed: 1.5, // the speed of bombs
       bombDamage: 3, // buildings have 8 possible damage
       maxMissiles: 3, // max number of missiles at a time
       startingMissiles: 100, // number of missiles available at start
       averageAircraftInterval: 800, // average frames between aircraft
       averageBombInterval: 100 // average frames between bombs
     };
+    this.settings = this.defaultSettings;
     this.reset();
     this.paused = true;
   }
@@ -242,9 +243,11 @@ class Game {
   }
 
   isGameOver() {
+    // game over if all cities are destroyed or if there are no more missiles or explosions
     return this.city.length === 0 || 
       (this.missilesRemaining === 0 && 
-       this.explosions.length === 0);
+       this.explosions.length === 0 &&
+       this.missiles.length === 0);
   }
 
   isPaused() {

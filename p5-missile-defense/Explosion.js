@@ -28,6 +28,6 @@ class Explosion {
   
   inExplosion(x, y) {
     let distance = dist(x, y, this.x, this.y);
-    return distance <= this.size;
+    return distance <= this.size/2; // explosion size is diameter, but we're looking for radius
   }
 }
