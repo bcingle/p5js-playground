@@ -22,21 +22,26 @@ class Game {
       planeSpeedMax: 1.5, // maximum speed of aircraft
       aircraftScore: 1000, // how many points you get for destroying an aircract
       bombScore: 100, // how many points you get for destroying a bomb
-      explosionSpeed: 1.5, // how fast an explosion grows/shrinks
-      explosionSize: 70, // how big an explosion gets before it stops growing
-      bombSpeed: 1.5, // the speed of bombs
+      explosionSpeed: 1.8, // how fast an explosion grows/shrinks
+      explosionSize: 100, // how big an explosion gets before it stops growing
+      bombSpeed: 1.2, // the speed of bombs
       bombDamage: 3, // buildings have 8 possible damage
       maxMissiles: 3, // max number of missiles at a time
       startingMissiles: 100, // number of missiles available at start
       averageAircraftInterval: 800, // average frames between aircraft
       averageBombInterval: 100 // average frames between bombs
     };
+    // maybe add an interface for user to change settings?
     this.settings = this.defaultSettings;
-    this.reset();
+    this.resetGame();
     this.paused = true;
   }
 
-  reset() {
+  resetSettings() {
+    this.settings = this.defaultSettings;
+  }
+
+  resetGame() {
     this.city = this.populateCity();
     this.canon = this.generateCanon();
     this.cursor = new Cursor();
@@ -54,16 +59,18 @@ class Game {
   }
 
   update() {
-    if (this.isGameOver()) {
+    if (!focused) {
+      // do no updates
+    } else if (this.isGameOver()) {
       if (this.keyPressed === 32 || game.click) {
-        this.reset();
+        this.resetGame();
       }
     } else if (this.isPaused()) {
       if (this.keyPressed === 32 || game.click) {
         this.paused = false;
       }
     } else {
-      if (this.keyPressed === 32 || game.click) {
+      if (this.keyPressed === 32) {
         this.paused = true;
       } else {
         this.cursor.update();

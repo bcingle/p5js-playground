@@ -2,6 +2,7 @@ function setup() {
   game = new Game();
   let canvas = createCanvas(game.settings.width, game.settings.height);
   canvas.parent('missile-defense');
+  canvas.mouseClicked(mouseClickedOnCanvas);
 }
 
 function draw() {
@@ -10,7 +11,7 @@ function draw() {
 }
 
 /** when mouse is clicked, tell the game the mouse has been clicked */
-function mouseClicked() {
+function mouseClickedOnCanvas() {
   game.click = true;
 }
 
@@ -18,6 +19,7 @@ function keyPressed() {
   game.keyPressed = keyCode;
 }
 
-function touchEnded() {
-  game.click = true; 
-}
+// touch already activates mouseClicked event
+// function touchEnded() {
+//   game.click = true; 
+// }
